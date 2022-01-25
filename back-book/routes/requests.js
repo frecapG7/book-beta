@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const savedRequest = await new Request({
         "description": req.body.description,
-        "tags": req.body.tags
+        "tags": req.body.tags,
+        "user_id": req.body.user_id
     }).save();
     try{
         res.send(savedRequest);
@@ -29,7 +30,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/search', async (req, res) => {
-    const searchResult = await Request.find({tags: {$in: [req.body.tags]}}).sort('created');
+    const searchResult = await Request.find({"tags": {$all: [req.body.tags]}}).sort('created');
 
     try{
         res.json({

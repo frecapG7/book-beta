@@ -6,7 +6,7 @@ const User = require('../models/User');
 const UserService = require('../services/UserService');
 
 router.post('/search', async (req, res) => {
-    const result = User.find({ "username": { $regex: '.*' + req.body.name + '.*' } });
+    const result = await User.find({ "username": { $regex: '.*' + req.body.name + '.*' } });
     try {
         res.json({
             "content": result,
