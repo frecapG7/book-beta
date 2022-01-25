@@ -17,18 +17,20 @@ router.post('/search', async (req, res) => {
     }
 });
 
-router.post('/',UserService.verifyMailUnicity, async (req, res) => {
+router.post('/', UserService.verifyMailUnicity, async (req, res) => {
 
-    const savedUser = await new User({  
-        "username": req.body.username,
-        "email": req.body.email,
-        "password": req.body.password,
-    }).save();
+    const newUser = new User({
+        username: req.body.username,
+        email: req.body.email
+    });
+    newUser.setPassword(req.body.password);
 
     try {
+        const savedUser = await newUser.save();
+
         res.json(savedUser);
     } catch (err) {
-        res.json({ message: err });
+        res.status(500).json({ message: err });
     }
 });
 

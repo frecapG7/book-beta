@@ -1,16 +1,16 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const User = require('./models/User');
 
-app.use('/', express.json());
+
 
 // TODO : Should be store elsewhere
 let refreshTokens = [];
 
-app.post('/token', (req, res) => {
+router.post('/token', (req, res) => {
     const refreshToken = req.body.token
+    console.log(refreshToken);
     if (refreshToken == null) return res.sendStatus(401);
     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
 
@@ -22,23 +22,27 @@ app.post('/token', (req, res) => {
     });
 });
 
-app.post('/login', (req, res) => {
-    console.log('TODO: login');
+router.post('/login', (req, res) => {
+    console.log(req.body);
+    console.log( req.body.email);
 
     //Auth user
     const username = User.findOne({ email: req.body.email }, (err, user) => {
         // if not found return error
-        if (err) return res.status(400).json({
-            message: 'User not found'
-        });
+        if (user === null) {
+            return res.status(400).json({
+                message: 'User not found'
+            });
+        };
 
         // check if password is valid
         if (!user.validPassword(req.body.password)) return res.status(400).json({
             message: 'Wrong password'
         });
 
-        const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+        const jsonUser = {username : user.username};
+        const accessToken = generateAccessToken(jsonUser);
+        const refreshToken = jwt.sign(jsonUser, process.env.REFRESH_TOKEN_SECRET);
 
         refreshTokens.push(refreshToken);
 
@@ -49,7 +53,7 @@ app.post('/login', (req, res) => {
 
 });
 
-app.delete('/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
 });
@@ -61,4 +65,4 @@ function generateAccessToken(user) {
 }
 
 
-app.listen(4000);
+module.exports = router;

@@ -5,12 +5,14 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 
-
+const authRoute = require('./routes/auth');
 const booksRoute = require('./routes/books');
 const requestsRoute = require('./routes/requests');
 const usersRoute = require('./routes/users');
 // Routes
 app.use('/', express.json());
+
+app.use('/', authRoute);
 app.use('/books', booksRoute);
 app.use('/requests', requestsRoute);
 app.use('/users', usersRoute);
