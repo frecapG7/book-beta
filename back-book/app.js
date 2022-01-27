@@ -17,6 +17,10 @@ app.use('/books', booksRoute);
 app.use('/requests', requestsRoute);
 app.use('/users', usersRoute);
 
+//TODO : emove
+app.get('/test', authenticateToken, (req, res) => {
+    res.json({ username: req.user.username });
+});
 
 app.get("/", (req, res) => {
     console.log('Hello world');
@@ -29,10 +33,7 @@ mongoose.connect(
     console.log('Connection succes');
 });
 
-//TODO : emove
-app.get('/test', authenticateToken, (req, res) => {
-    res.json({ username: req.user.username });
-})
+
 
 
 function authenticateToken(req, res, next) {
@@ -49,4 +50,4 @@ function authenticateToken(req, res, next) {
     });
 }
 
-app.listen(3000);
+app.listen(3001);

@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 
 // https://blog.logrocket.com/using-material-ui-with-react-hook-form/
 
-const FormTextField = ({control, name, label}) => {
+const FormTextField = ({control, name, label, rules}) => {
     return (
         <Controller
             control={control}
@@ -16,6 +16,7 @@ const FormTextField = ({control, name, label}) => {
                     />
             )}
             defaultValue={""}
+            rules={rules}
 
         />
     );

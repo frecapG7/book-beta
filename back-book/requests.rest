@@ -19,5 +19,9 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:4000/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDMxMjM4NDQsImV4cCI6MTY0MzEyMzg1OX0.V3zYJpFHepcUEG8K_dc04ryFmrsNzZCMIAcIBf52foc
+GET http://localhost:3000/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyZWNhcGUiLCJpYXQiOjE2NDMxMzczNTIsImV4cCI6MTY0MzEzNzQ3Mn0.kYOMU4tZcGDh26GnUg8PAopEOMd-yFPvp9iyAluKvy4
+
+###
+
+GET http://localhost:3000/books
