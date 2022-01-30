@@ -9,6 +9,10 @@ const authRoute = require('./routes/auth');
 const booksRoute = require('./routes/books');
 const requestsRoute = require('./routes/requests');
 const usersRoute = require('./routes/users');
+
+const cors = require('cors');
+
+app.use(cors());
 // Routes
 app.use('/', express.json());
 
@@ -19,7 +23,7 @@ app.use('/users', usersRoute);
 
 //TODO : emove
 app.get('/test', authenticateToken, (req, res) => {
-    res.json({ username: req.user.username });
+    res.json({ id: req.user.id });
 });
 
 app.get("/", (req, res) => {
@@ -50,4 +54,4 @@ function authenticateToken(req, res, next) {
     });
 }
 
-app.listen(3001);
+app.listen(3000);

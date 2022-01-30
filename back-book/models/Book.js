@@ -8,6 +8,11 @@ const BookSchema = new mongoose.Schema({
     description: String,
     author: String,
     publishDate: Date,
+    tags: [String],
+
+    originCountry: String,
+    
+
 });
 
 

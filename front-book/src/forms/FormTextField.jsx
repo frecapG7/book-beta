@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 
 // https://blog.logrocket.com/using-material-ui-with-react-hook-form/
 
-const FormTextField = ({control, name, label, rules}) => {
+const FormTextField = ({control, name, label, disabled, rules, errorMessage}) => {
     return (
         <Controller
             control={control}
@@ -13,6 +13,12 @@ const FormTextField = ({control, name, label, rules}) => {
                     onChange={onChange}
                     value={value}
                     label={label}
+                    disabled={disabled}
+                    required={rules?.required ? rules.required : false}
+                    inputProps={{maxLength: rules?.maxLength ? rules.maxLength : undefined}}
+                    helperText={'TODO'}
+                    FormHelperTextProps={{error: true}}
+                    margin="normal"
                     />
             )}
             defaultValue={""}

@@ -9,8 +9,8 @@ const jwt = require('jsonwebtoken');
 let refreshTokens = [];
 
 router.post('/token', (req, res) => {
-    const refreshToken = req.body.token
-    console.log(refreshToken);
+    const refreshToken = req.body.token;
+    
     if (refreshToken == null) return res.sendStatus(401);
     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
 
@@ -23,8 +23,6 @@ router.post('/token', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    console.log(req.body);
-    console.log( req.body.email);
 
     //Auth user
     const username = User.findOne({ email: req.body.email }, (err, user) => {
@@ -40,7 +38,7 @@ router.post('/login', (req, res) => {
             message: 'Wrong password'
         });
 
-        const jsonUser = {username : user.username};
+        const jsonUser = {id : user.id};
         const accessToken = generateAccessToken(jsonUser);
         const refreshToken = jwt.sign(jsonUser, process.env.REFRESH_TOKEN_SECRET);
 

@@ -12,8 +12,6 @@ const UserService = {
             }
             console.log(result)
             result > 1 ? next(new Error('Already exist')) : next();
-
-
         });
     }
 }
