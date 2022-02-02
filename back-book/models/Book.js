@@ -11,7 +11,21 @@ const BookSchema = new mongoose.Schema({
     tags: [String],
 
     originCountry: String,
-    
+
+
+
+    // Meta data info
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    created: {
+        type: Date,
+        default : Date.now
+    },
+    modified: {
+        type: Date
+    }
 
 });
 

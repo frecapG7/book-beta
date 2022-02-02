@@ -8,21 +8,24 @@ const FormTextField = ({control, name, label, disabled, rules, errorMessage}) =>
         <Controller
             control={control}
             name={name}
-            render={({ field: {  onChange, value } }) => (
+            defaultValue=""
+            rules={rules}
+            render={({ field: {  onChange, value, onBlur, ref } }) => (
                 <TextField
                     onChange={onChange}
-                    value={value}
+                    value={value ? value : ""}
                     label={label}
                     disabled={disabled}
                     required={rules?.required ? rules.required : false}
                     inputProps={{maxLength: rules?.maxLength ? rules.maxLength : undefined}}
-                    helperText={'TODO'}
+                    helperText={errorMessage}
                     FormHelperTextProps={{error: true}}
                     margin="normal"
+                    inputRef={ref}
+                    onBlur={onBlur}
                     />
             )}
-            defaultValue={""}
-            rules={rules}
+
 
         />
     );

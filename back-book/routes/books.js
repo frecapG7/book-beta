@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 const Book = require('../models/Book');
+const BookService = require('../services/BookService');
+const { default: authValidator } = require('../validators/authValidator');
 
 router.get('/', async (req, res) => {
     try {
@@ -24,20 +26,24 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', authValidator.authenticateToken, async (req, res) => {
+    console.log('API Call');
 
-    const book = new Book({
-        title: req.body.title,
-        description: req.body.description,
-        author: req.body.author
-    });
     try {
-        const savedBook = await book.save();
-        res.json(savedBook);
+
+        const newBook = await BookService.AddBook(req.body, req.user)
+        res.status(200).json(newBook);
+
     } catch (err) {
-        res.json({ message: err });
+        res.status(err.status ? err.status : 500).json(err.message);
     }
 
+
+
+});
+
+router.patch('/:id', async (req, res) => {
+    const book = await Book.findById(req.params.id)
 })
 
 module.exports = router;

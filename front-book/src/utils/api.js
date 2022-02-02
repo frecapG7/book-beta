@@ -14,9 +14,6 @@ const api = axios.create({
 });
 
 
-
-
-
 // interceptor to add Bearer token
 api.interceptors.request.use((config) => {
     console.log('Intercept request');
@@ -62,8 +59,6 @@ api.interceptors.response.use((response) => {
     return Promise.reject(error.response);
 
 });
-
-
 
 export default api;
 

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import FormTextField from "../forms/FormTextField";
 import api from "../utils/api";
+import { $temporaryMessage } from "../utils/utils";
 
 const Login = () => {
 
@@ -29,9 +30,6 @@ const Login = () => {
 
                 //else go home
                 navigate("/");
-
-
-
             }).catch((err) => {
                 debugger
                 console.log(JSON.stringify(err));
@@ -66,19 +64,19 @@ const Login = () => {
 
                     <FormTextField
                         control={control}
-                        name={"email"}
-                        label={"Email"}
+                        name="email"
+                        label="Email"
                         rules={{ required: true }}
-                        errorMessage={errors.email}
+                        errorMessage={$temporaryMessage(errors.email)}
 
                     />
 
                     <FormTextField
                         control={control}
-                        name={"password"}
-                        label={"Password"}
+                        name="password"
+                        label="Password"
                         rules={{ required: true }}
-                        errorMessage={errors.password}
+                        errorMessage={$temporaryMessage(errors.password)}
                     />
 
                     <Box textAlign="center">
