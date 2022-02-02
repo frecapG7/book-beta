@@ -6,6 +6,7 @@ import Home from './home/Home';
 import SearchBook from './books/SearchBook';
 import BookForm from './books/BookForm';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { ApiProvider } from './provider/ApiProvider';
 
 export default function App() {
 
@@ -14,24 +15,24 @@ export default function App() {
       primary: {
         main: "#df9f00",
       },
-      secondary: {
-        main: ""
-      }
     }
   });
 
 
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+    <ThemeProvider theme={theme}>
+      <ApiProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-          <Route path="/books/search" element={<SearchBook />} ></Route>
-          <Route path="/book/add" element={<BookForm />}></Route>
-        </Routes>
-      </BrowserRouter>
+            <Route path="/books/search" element={<SearchBook />} ></Route>
+            <Route path="/book/add" element={<BookForm />}></Route>
+            
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </ApiProvider>
     </ThemeProvider>
 
   );

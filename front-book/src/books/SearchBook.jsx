@@ -56,7 +56,7 @@ const SearchBook = () => {
 
             </Paper>
         </Container >
-    );
+    )
 }
 
 export default SearchBook;
