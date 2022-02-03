@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import FormTextField from "../forms/FormTextField";
+import { useApiContext } from "../provider/ApiProvider";
 import api from "../utils/api";
 import { $temporaryMessage } from "../utils/utils";
 
@@ -15,14 +16,19 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const {apiContext, setApiContext} = useApiContext();
+
 
 
     const onSubmit = (data) => {
-        console.log(JSON.stringify(data));
+
         api.post('/login', data)
             .then((resp) => {
-                console.log(JSON.stringify(resp))
-
+                debugger
+                setApiContext({
+                    isConnected: true,
+                    user: resp.data
+                });
                 localStorage.setItem('accessToken', resp.data.accessToken);
                 localStorage.setItem('refreshToken', resp.data.refreshToken);
                 // check if coming from app

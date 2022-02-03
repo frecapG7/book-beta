@@ -6,14 +6,14 @@ const BookService = {
 
 
     async AddBook(book, user) {
-    
+
         const newBook = new Book({
             title: book.title,
             description: book.description,
             author: book.author,
             publishDate: book.publishDate,
             tags: book.tags,
-            createdBy = user.id 
+            createdBy: user.id
         });
 
         try {

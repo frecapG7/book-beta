@@ -7,7 +7,7 @@ import api from "../utils/api";
 const SearchBook = () => {
 
     const { control, handleSubmit } = useForm();
-    const { searchResults, setSearchResults } = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
         // api.get('/test').then(resp => {
@@ -19,6 +19,11 @@ const SearchBook = () => {
 
     const onSubmit = (data) => {
         console.log(JSON.stringify(data));
+        api.get('/books/').then((resp) => {
+            setSearchResults(resp.data);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
     return (
         <Container maxWidth={false}>
@@ -55,6 +60,17 @@ const SearchBook = () => {
                 </Grid>
 
             </Paper>
+
+            <Container>
+                <Grid container>
+                    {searchResults?.map((searchResult) => (
+                            <Grid key={searchResult.id} item xs={12}>
+                                <Typography variant="h2">{searchResult.title}</Typography>
+                            </Grid>
+                        )
+                    )}
+                </Grid>
+            </Container>
         </Container >
     )
 }

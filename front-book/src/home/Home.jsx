@@ -11,7 +11,8 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!apiContext?.connected) navigate('/login');
+        debugger
+        if(!apiContext?.isConnected) navigate('/login');
     });
 
     return (

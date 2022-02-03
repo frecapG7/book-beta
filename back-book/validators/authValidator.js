@@ -1,10 +1,8 @@
 
 
-const authValidator = {
+module.exports = {
 
-
-
-    authenticateToken = (req, res, next) => {
+    authenticateToken(req, res, next) {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 
@@ -17,8 +15,4 @@ const authValidator = {
             next();
         });
     }
-
-
 }
-
-module.exports = authValidator;

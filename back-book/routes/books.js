@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Book = require('../models/Book');
 const BookService = require('../services/BookService');
-const { default: authValidator } = require('../validators/authValidator');
+const { authenticateToken } = require('../validators/authValidator');
 
 router.get('/', async (req, res) => {
     try {
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', authValidator.authenticateToken, async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     console.log('API Call');
 
     try {

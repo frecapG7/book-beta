@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-require('dotenv').config();
 const authRoute = require('./routes/auth');
 const booksRoute = require('./routes/books');
 const requestsRoute = require('./routes/requests');
 const usersRoute = require('./routes/users');
 const cors = require('cors');
+const config = require('./config');
 
 app.use(cors());
 // Routes
@@ -23,9 +23,10 @@ app.get("/", (req, res) => {
     res.send('Hello zorld');
 });
 
+console.log(process.DATABASE_CONNECTION);
 
 mongoose.connect(
-    process.env.DATABASE_CONNECTION, () => {
+    config.DATABASE_CONNECTION, () => {
     console.log('Connection succes');
 });
 
