@@ -1,9 +1,13 @@
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 // https://blog.logrocket.com/using-material-ui-with-react-hook-form/
 
 const FormTextField = ({control, name, label, disabled, rules, errorMessage}) => {
+
+    const {t} = useTranslation(['errors']);
+
     return (
         <Controller
             control={control}
@@ -18,7 +22,7 @@ const FormTextField = ({control, name, label, disabled, rules, errorMessage}) =>
                     disabled={disabled}
                     required={rules?.required ? rules.required : false}
                     inputProps={{maxLength: rules?.maxLength ? rules.maxLength : undefined}}
-                    helperText={errorMessage}
+                    helperText={t(errorMessage, errorMessage)}
                     FormHelperTextProps={{error: true}}
                     margin="normal"
                     inputRef={ref}

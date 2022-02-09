@@ -2,6 +2,7 @@ import { Box, Button, Container, FormHelperText, Grid, Paper, TextField, Typogra
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import FormTextField from "../forms/FormTextField";
 import { useApiContext } from "../provider/ApiProvider";
@@ -16,15 +17,14 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const {apiContext, setApiContext} = useApiContext();
+    const { apiContext, setApiContext } = useApiContext();
 
-
+    const { t } = useTranslation(['login']);
 
     const onSubmit = (data) => {
 
         api.post('/login', data)
             .then((resp) => {
-                debugger
                 setApiContext({
                     isConnected: true,
                     user: resp.data
@@ -32,7 +32,7 @@ const Login = () => {
                 localStorage.setItem('accessToken', resp.data.accessToken);
                 localStorage.setItem('refreshToken', resp.data.refreshToken);
                 // check if coming from app
-                if(location.state?.from.pathname) navigate(location.state.from.pathname)
+                if (location.state?.from.pathname) navigate(location.state.from.pathname)
 
                 //else go home
                 navigate("/");
@@ -41,11 +41,11 @@ const Login = () => {
                 console.log(JSON.stringify(err));
                 // Error handling (maybe in separate method)
                 if (!err || err.status === 500) {
-                    setLoginError('500 Internal server error :' + err.data.message );
+                    setLoginError('500 Internal server error :' + err.data.message);
                 } else if (err.status === 401) {
-                    setLoginError('401 wrong password'  + err.data.message);
+                    setLoginError('401 wrong password' + err.data.message);
                 } else if (err.status === 403) {
-                    setLoginError('403 forbidden'  + err.data.message);
+                    setLoginError('403 forbidden' + err.data.message);
                 } else {
                     setLoginError('Unknown error ' + err.data.message);
                 }
@@ -64,7 +64,7 @@ const Login = () => {
                     <p>This is logo</p>
                 </div>
                 <Box my={1}>
-                    <Typography variant="h3">Login</Typography>
+                    <Typography variant="h3">{t('login:login', 'Login')}</Typography>
                 </Box>
                 <form noValidate onSubmit={handleSubmit(onSubmit)}>
 
