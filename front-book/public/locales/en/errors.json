@@ -1,3 +1,12 @@
 {
     "required": "field required",
+<<<<<<< HEAD
+=======
+
+
+    "wrongPassword": "Wrong password",
+    "userNotFound": "User not found",
+    "internalServerError": "Internal server error",
+    "unknownError": "Unknwown error"
+>>>>>>> navbar
 }

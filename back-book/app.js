@@ -7,8 +7,12 @@ const requestsRoute = require('./routes/requests');
 const usersRoute = require('./routes/users');
 const cors = require('cors');
 const config = require('./config');
+const morgan = require('morgan');
 
 app.use(cors());
+// Logger
+app.use(morgan('combined'));
+
 // Routes
 app.use('/', express.json());
 

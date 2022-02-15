@@ -1,10 +1,12 @@
 import { Box, Button, Container, FormHelperText, Grid, Paper, TextField, Typography } from "@mui/material";
+import { height } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import FormTextField from "../forms/FormTextField";
+import NavBar from "../navigation/NavBar";
 import { useApiContext } from "../provider/ApiProvider";
 import api from "../utils/api";
 import { $temporaryMessage } from "../utils/utils";
@@ -19,7 +21,8 @@ const Login = () => {
 
     const { apiContext, setApiContext } = useApiContext();
 
-    const { t } = useTranslation(['login']);
+
+    const { t } = useTranslation(['login, errors']);
 
     const onSubmit = (data) => {
 
@@ -38,26 +41,32 @@ const Login = () => {
                 navigate("/");
             }).catch((err) => {
                 debugger
-                console.log(JSON.stringify(err));
                 // Error handling (maybe in separate method)
                 if (!err || err.status === 500) {
-                    setLoginError('500 Internal server error :' + err.data.message);
+                    setLoginError('internalServerError');
                 } else if (err.status === 401) {
-                    setLoginError('401 wrong password' + err.data.message);
+                    setLoginError('wrongPassword');
                 } else if (err.status === 403) {
                     setLoginError('403 forbidden' + err.data.message);
+                } else if (err.status === 404) {
+                    setLoginError('userNotFound');
                 } else {
-                    setLoginError('Unknown error ' + err.data.message);
+                    setLoginError('unknownError');
                 }
             });
     }
 
     return (
-        <Container maxWidth={false}>
+        <Container sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            justifyContent: 'center'
+        }}>
             <Paper sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
 
             }}>
                 <div>
@@ -94,7 +103,7 @@ const Login = () => {
                     </Box>
                     {loginError && (
                         <Grid container justifyContent="center">
-                            <FormHelperText error={true}>{loginError}</FormHelperText>
+                            <FormHelperText error={true}>{t(`errors:${loginError}`, loginError)}</FormHelperText>
                         </Grid>
                     )}
 
