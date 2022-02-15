@@ -1,4 +1,8 @@
 {
     "searchBooks": "Rechercher un livre",
-    "author": "Auteur"
+    "author": "Auteur",
+
+    "title": "Titre",
+    "publicationDate": "Date de publication",
+    "tags": "Catégories"
 }

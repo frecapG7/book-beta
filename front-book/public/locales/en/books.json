@@ -1,4 +1,7 @@
 {
     "searchBooks": "Search book",
-    "author": "Author"
+    "author": "Author",
+    "title": "Title",
+    "publicationDate": "Publication date",
+    "tags": "Tags"
 }
