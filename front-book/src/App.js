@@ -23,7 +23,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/books/search" element={<SearchBook />} ></Route>
-            <Route path="/book/add" element={<BookForm />}></Route>
+            <Route path="/books/add" element={<BookForm />}></Route>
 
             <Route path="/" element={<Home />} />
           </Routes>
