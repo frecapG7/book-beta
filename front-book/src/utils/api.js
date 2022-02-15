@@ -34,9 +34,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
     return response;
 }, async (error) => {
-    console.log('intercept error response : ' + error);
     const originalConfig = error.config;
-    debugger
+
     if (error.response) {
         if (error.response.status === 401 && !originalConfig._retry) {
             //Use _retry to avoid infinite loop of 401

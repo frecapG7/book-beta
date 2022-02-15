@@ -7,20 +7,15 @@ import SearchBook from './books/SearchBook';
 import BookForm from './books/BookForm';
 import { createTheme, Fade, ThemeProvider } from '@mui/material';
 import { ApiProvider } from './provider/ApiProvider';
+import AppThemeProvider from './provider/AppThemeProvider';
 
 export default function App() {
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#df9f00",
-      },
-    }
-  });
+
 
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <ApiProvider>
         <BrowserRouter>
 
@@ -35,7 +30,7 @@ export default function App() {
 
         </BrowserRouter>
       </ApiProvider>
-    </ThemeProvider>
+    </AppThemeProvider>
 
   );
 }

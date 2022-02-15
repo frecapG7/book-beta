@@ -21,7 +21,7 @@ const Login = () => {
 
     const { apiContext, setApiContext } = useApiContext();
 
-    const { t } = useTranslation(['login']);
+    const { t } = useTranslation(['login, errors']);
 
     const onSubmit = (data) => {
 
@@ -40,16 +40,17 @@ const Login = () => {
                 navigate("/");
             }).catch((err) => {
                 debugger
-                console.log(JSON.stringify(err));
                 // Error handling (maybe in separate method)
                 if (!err || err.status === 500) {
-                    setLoginError('500 Internal server error :' + err.data.message);
+                    setLoginError('internalServerError');
                 } else if (err.status === 401) {
-                    setLoginError('401 wrong password' + err.data.message);
+                    setLoginError('wrongPassword');
                 } else if (err.status === 403) {
                     setLoginError('403 forbidden' + err.data.message);
+                } else if (err.status === 404) {
+                    setLoginError('userNotFound');
                 } else {
-                    setLoginError('Unknown error ' + err.data.message);
+                    setLoginError('unknownError');
                 }
             });
     }
@@ -99,12 +100,11 @@ const Login = () => {
                             variant="contained"
                         >Login</Button>
                     </Box>
-                    {/* {loginError && (
-                        
-                    )} */}
-                    <Grid container justifyContent="center">
-                        <FormHelperText error={true}>{loginError}</FormHelperText>
-                    </Grid>
+                    {loginError && (
+                        <Grid container justifyContent="center">
+                            <FormHelperText error={true}>{t(`errors:${loginError}`, loginError)}</FormHelperText>
+                        </Grid>
+                    )}
 
                 </form>
             </Paper>

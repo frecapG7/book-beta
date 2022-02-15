@@ -1,3 +1,10 @@
 {
-    "required": "Champ requis"
+    "required": "Champ requis",
+
+
+
+    "wrongPassword": "Le mot de passe est incorrect",
+    "userNotFound": "Utilisateur non trouvé",
+    "internalServerError": "Erreur interne du serveur",
+    "unknownError": "Erreur inconnue"
 }
