@@ -28,13 +28,13 @@ router.post('/login', (req, res) => {
     const username = User.findOne({ email: req.body.email }, (err, user) => {
         // if not found return error
         if (user === null) {
-            return res.status(400).json({
+            return res.status(404).json({
                 message: 'User not found'
             });
         };
 
         // check if password is valid
-        if (!user.validPassword(req.body.password)) return res.status(400).json({
+        if (!user.validPassword(req.body.password)) return res.status(401).json({
             message: 'Wrong password'
         });
 
