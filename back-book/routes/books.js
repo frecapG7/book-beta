@@ -38,13 +38,28 @@ router.post('/', authenticateToken, async (req, res) => {
         res.status(err.status ? err.status : 500).json(err.message);
     }
 
-
-
 });
 
 router.patch('/:id', async (req, res) => {
     const book = await Book.findById(req.params.id)
-})
+});
+
+router.post('/search', async (req, res) => {
+    console.log('API call');
+    try {
+        const pageSize = req.params.pageSize;
+        const pageNumber = req.params.pageNumber;
+        const value = req.body.value;
+        const searchResults = await BookService.SearchBook(value, pageSize, pageNumber, null);
+
+        console.log(searchResults);
+        res.status(200).json(searchResults);
+    } catch(err){
+        res.status(err.status ? err.status : 500).json(err.message);
+    }
+
+
+});
 
 module.exports = router;
 

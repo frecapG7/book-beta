@@ -1,9 +1,7 @@
 
 
-
+const Book = require("../models/Book");
 const BookService = {
-
-
 
     async AddBook(book, user) {
 
@@ -21,6 +19,20 @@ const BookService = {
             return { savedBook };
         } catch (err) {
             return { message: err };
+        }
+    },
+
+    async SearchBook(searchValue, additionalTags, pageSize, pageNumber, sortBy) {
+        try {
+            const resultSet = await Book.find({
+                $or: [
+                    { "title": { $regex: '.*' + searchValue + '.*' } },
+                    { "author": { $regex: '.*' + searchValue + '.*' } }]
+            }).limit(pageSize);
+
+            return resultSet;
+        } catch (err) {
+            return {message : err};
         }
     }
 }
